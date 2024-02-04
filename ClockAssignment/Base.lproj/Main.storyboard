@@ -32,7 +32,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Start Timer"/>
                                 <connections>
-                                    <action selector="timerPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s7z-U4-OWY"/>
+                                    <action selector="startTimer" destination="BYZ-38-t0r" eventType="touchUpInside" id="8RM-iC-tKP"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time Remaining: 00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eq-bu-wcq">
@@ -42,6 +42,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pmImage" translatesAutoresizingMaskIntoConstraints="NO" id="ddh-KE-VQK" userLabel="bgImage">
+                                <rect key="frame" x="76" y="161" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -52,8 +56,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundImage" destination="ddh-KE-VQK" id="rfM-VP-c8y"/>
                         <outlet property="dateTimeLabel" destination="TxQ-PO-cMA" id="ErX-BB-7ab"/>
-                        <outlet property="timerButton" destination="awZ-ng-ibH" id="wo2-FL-SQd"/>
+                        <outlet property="timerButton" destination="awZ-ng-ibH" id="VYG-6x-5RZ"/>
                         <outlet property="timerDuration" destination="6eq-bu-wcq" id="6aw-xz-u5W"/>
                         <outlet property="timerPicker" destination="V1D-RH-uD6" id="Peu-NN-3Jw"/>
                     </connections>
@@ -64,6 +69,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="pmImage" width="473.66665649414062" height="710.66668701171875"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
