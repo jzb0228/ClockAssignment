@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
@@ -15,7 +16,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var timerDuration: UILabel!
     
     var timeRemaining: Double = 0;
-    var timer = Timer()
+    var countdownTimer = Timer()
+    var timerOn: Bool = false
+    var player: AVAudioPlayer?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        startTime()
+    }
     
     //shows current datetime in format "Sat, 02 February 2024, 05:03:00 PM"
     func startTime() {
@@ -29,21 +37,32 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func startTimer(_ sender: UIButton) {
+    @IBAction func timerPressed(_ sender: UIButton) {
         
+        if(timerOn == false) {
+            startTimer()
+        } else{
+            stopTimer()
+        }
+    }
+    
+    func startTimer() {
+        
+        timerOn = true
         timeRemaining = timerPicker.countDownDuration
-        timerButton.setTitle("Stop Music", for: .normal)
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(step), userInfo: nil, repeats: true)
-        
+        timerButton.setTitle("Stop Timer", for: .normal)
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(step), userInfo: nil, repeats: true)
     }
     
     @objc func step() {
         
         if timeRemaining > 0 {
-            timeRemaining -= 1
+            timeRemaining -= 20
         } else {
-            timer.invalidate()
-            timeRemaining = 0;
+            countdownTimer.invalidate()
+            timeRemaining = 0
+            timerButton.setTitle("Stop Music", for: .normal)
+            playMusic()
         }
         
         let timerFormatter = DateComponentsFormatter()
@@ -53,9 +72,27 @@ class ViewController: UIViewController {
         timerDuration.text = currentDuration
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        startTime()
+    func stopTimer() {
+        
+        timerOn = false
+        countdownTimer.invalidate()
+        player?.stop()
+        timerButton.setTitle("Start Timer", for: .normal)
+    }
+    
+    func playMusic() {
+        
+      guard let path = Bundle.main.path(forResource: "soundbite", ofType:"mp3") else {
+            return }
+        let url = URL(fileURLWithPath: path)
+
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 
 

@@ -13,6 +13,7 @@
 		248B11392B6F07FC00B0D532 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 248B11372B6F07FC00B0D532 /* Main.storyboard */; };
 		248B113B2B6F07FD00B0D532 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 248B113A2B6F07FD00B0D532 /* Assets.xcassets */; };
 		248B113E2B6F07FD00B0D532 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 248B113C2B6F07FD00B0D532 /* LaunchScreen.storyboard */; };
+		248B11462B6F868500B0D532 /* soundbite.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 248B11452B6F868500B0D532 /* soundbite.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		248B113A2B6F07FD00B0D532 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		248B113D2B6F07FD00B0D532 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		248B113F2B6F07FD00B0D532 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		248B11452B6F868500B0D532 /* soundbite.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = soundbite.mp3; path = ../../../../../../../Downloads/soundbite.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				248B113A2B6F07FD00B0D532 /* Assets.xcassets */,
 				248B113C2B6F07FD00B0D532 /* LaunchScreen.storyboard */,
 				248B113F2B6F07FD00B0D532 /* Info.plist */,
+				248B11452B6F868500B0D532 /* soundbite.mp3 */,
 			);
 			path = ClockAssignment;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				248B11462B6F868500B0D532 /* soundbite.mp3 in Resources */,
 				248B113E2B6F07FD00B0D532 /* LaunchScreen.storyboard in Resources */,
 				248B113B2B6F07FD00B0D532 /* Assets.xcassets in Resources */,
 				248B11392B6F07FC00B0D532 /* Main.storyboard in Resources */,
