@@ -18,11 +18,12 @@ class ViewController: UIViewController {
     
     var timeRemaining: Double = 0;
     var countdownTimer = Timer()
-    //var timerOn: Bool = false
     var player: AVAudioPlayer?
     var isPlaying: Bool = false
+    var timerOn: Bool = false
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         startTime()
         changeBackgroundImage()
@@ -40,30 +41,30 @@ class ViewController: UIViewController {
         }
     }
     
-//    @IBAction func buttonPressed(_ sender: UIButton) {
-//
-//        if(timerOn == false) {
-//            startTimer()
-//        } else{
-//            stopTimer()
-//        }
-//    }
-    
-    @IBAction func startTimer() {
-        
-        if(isPlaying == false){
-            //timerOn = true
-            timerButton.isEnabled = false
-            timerPicker.isEnabled = false
-            timeRemaining = timerPicker.countDownDuration
-            //timerButton.setTitle("Stop Timer", for: .normal)
-            countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(step), userInfo: nil, repeats: true)
-        }else {
-            timerButton.setTitle("Start Timer", for: .normal)
-            timerDuration.text = "Time Remaining: 00:00:00"
+    @IBAction func buttonPressed(_ sender: UIButton) {
+
+        if(isPlaying == false) {
+            
+            if(timerOn == false) {
+                startTimer()
+                timerPicker.isEnabled = false
+            } else{
+                resetTimer()
+                timerPicker.isEnabled = true
+            }
+            
+        } else{
+            stopMusic()
             timerPicker.isEnabled = true
-            isPlaying = false
-            player?.stop()
+        }
+        
+    func startTimer() {
+        
+        timerOn = true
+        timerButton.setTitle("Reset Timer", for: .normal)
+        timerPicker.isEnabled = false
+        timeRemaining = timerPicker.countDownDuration
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(step), userInfo: nil, repeats: true)
         }
     }
     
@@ -71,33 +72,28 @@ class ViewController: UIViewController {
         
         if timeRemaining > 0 {
             timeRemaining -= 1
-            timerDuration.text = "Time Remaining: \(timeRemaining)"
-        } else {
+            let formattedTimeRemaining = timerFormatter.string(from: timeRemaining)
+            timerDuration.text = "Time Remaining: \(formattedTimeRemaining ?? "0")"
+        } else{
             countdownTimer.invalidate()
-            timeRemaining = 0
-            //timerButton.setTitle("Stop Music", for: .normal)
             playMusic()
-            timerButton.setTitle("Stop Music", for: .normal)
         }
-        
-//        let timerFormatter = DateComponentsFormatter()
-//        timerFormatter.allowedUnits = [.hour, .minute, .second]
-//        let currentDuration = timerFormatter.string(from: timeRemaining)
     }
     
-//    func stopTimer() {
-//        
-//        timerOn = false
-//        countdownTimer.invalidate()
-//        player?.stop()
-//        timerButton.setTitle("Start Timer", for: .normal)
-//    }
+    func resetTimer() {
+        
+        timerOn = false
+        timerButton.setTitle("Start Timer", for: .normal)
+        timerDuration.text = "Time Remaining: 00:00:00"
+        countdownTimer.invalidate()
+    }
     
     func playMusic() {
-      
+        
       isPlaying = true
       timerDuration.text = "Now Playing"
-      timerButton.isEnabled = true
+      timerButton.setTitle("Stop Music", for: .normal)
+ 
       guard let path = Bundle.main.path(forResource: "soundbite", ofType:"mp3") else {
             return }
         let url = URL(fileURLWithPath: path)
@@ -110,14 +106,30 @@ class ViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    
+    func stopMusic() {
+        
+        isPlaying = false
+        timerDuration.text = "Time Remaining: 00:00:00"
+        timerButton.setTitle("Start Timer", for: .normal)
+        player?.stop()
+        countdownTimer.invalidate()
+    }
 
     func changeBackgroundImage() {
         
         let hour = Calendar.current.component(.hour, from: Date())
         if(hour < 12) {
             backgroundImage.image = UIImage(named: "amImage")
-        }else { backgroundImage.image = UIImage(named: "pmImage")}
+        } else{backgroundImage.image = UIImage(named: "pmImage")}
     }
-
+    
+    var timerFormatter : DateComponentsFormatter {
+        
+        let myFormatter = DateComponentsFormatter()
+        myFormatter.allowedUnits = [.hour, .minute, .second]
+        myFormatter.zeroFormattingBehavior = .pad
+        return myFormatter
+    }
 }
 
